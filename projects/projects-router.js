@@ -67,9 +67,9 @@ router.post('/resources', (req, res) => {
    
     Projects.getTask() 
         .then(tsks => {
-            
+//map through completed and make the logic changes returning the new value-text            
         tsks.map(bool => {
-            
+
             if(bool.Completed == 1)bool.Completed = true; 
 
              else bool.Completed = false

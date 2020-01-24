@@ -8,11 +8,11 @@ addProject,
 getProject,
 addTask,
 getTask,
-findById,
-getById
+findById
+//getById
 
 }
-
+//inserting resource into database and returning resource you just created
 function addResource(resource) {
     return db('resources')
         .insert(resource)
@@ -21,21 +21,21 @@ function addResource(resource) {
         })
         
 }
-
+// grab all resources in table
 function getResource(){
     return db('resources')
 }
-
+// add a projct to the project table showing project that it created
 function addProject(projects) {
     return db('projects')
         .insert(projects)
         .then(ids => ({ id: ids[0] }))
 }
-
+// all projects in the projects table
 function getProject() {
     return db('projects')
 }
-
+// add a task to the task table and return the task created
 function addTask(task) {
     return db('tasks')
         .insert(task)
@@ -44,7 +44,7 @@ function addTask(task) {
         })
         
 }
-
+// all tasks in the task table
 function getTask() {
     return db('tasks')
         .select('tasks.id', 
@@ -61,7 +61,7 @@ function getTask() {
         
 
 }
-
+//use id to add  
 function getById(id) {
     return db('tasks')
     .where({ id })
