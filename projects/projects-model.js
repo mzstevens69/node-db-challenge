@@ -8,14 +8,17 @@ addProject,
 getProject,
 addTask,
 getTask,
-intToText,
-findById
+findById,
+getById
 
 }
 
-function addResource(resources) {
+function addResource(resource) {
     return db('resources')
-        .insert(resources)
+        .insert(resource)
+        .then(ids => {
+            return findById(ids[0])
+        })
         
 }
 
@@ -33,40 +36,41 @@ function getProject() {
     return db('projects')
 }
 
-function addTask(task, id) {
+function addTask(task) {
     return db('tasks')
-        .insert(task, id)
-        .then(([id]) => {
-            return db('tasks')
-                .where({id})
+        .insert(task)
+        .then(ids => {
+            return getById(ids[0])
         })
+        
 }
 
 function getTask() {
     return db('tasks')
         .select('tasks.id', 
         'tasks.description', 
-        'tasks.notes', 
-        'projects.name')
+        'tasks.notes',
+        'tasks.completed',
+        'projects.name',
+        'projects.description',
+        'tasks.project_id')
         .join('projects', 
         'projects.id',
-        'projects.description',
-        'projects.name',
-        'projects_id')
-        .where({ projects_id: id })
+        'tasks.project_id')
+        // .where({ projects_id: id })
         
 
 }
 
-function intToText() {
-
-    if (1 === true) {
-
-    } else 0 === false
+function getById(id) {
+    return db('tasks')
+    .where({ id })
+    .first()
+   
 }
 
 function findById(id) {
-    return db('projects')
-      .where({ id: Number(id) })
-      .first();
+    return db('resources')
+      .where({ id })
+      .first()
   }

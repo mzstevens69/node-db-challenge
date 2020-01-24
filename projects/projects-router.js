@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
     })
 })
 
-//POST create a resource
+//POST add  a resource
 router.post('/resources', (req, res) => {
     const resc = req.body;
   
@@ -63,21 +63,21 @@ router.post('/resources', (req, res) => {
   });
 
   //GET a list of Tasks
-  router.get('/:id/tasks', (req, res) => {
-    const { id } = req.params;
-  
-    Projects.getTask(id)
-    .then(tsk => {
-      if (tsk.length) {
-        projects.tasks.map(bool => {
+  router.get('/tasks', (req, res) => {
+   
+    Projects.getTask() 
+        .then(tsks => {
+            
+        tsks.map(bool => {
+            
             if(bool.Completed == 1)bool.Completed = true; 
 
              else bool.Completed = false
         }) 
 
-        res.json(tsk);
-    } 
-    })
+        res.json(tsks);
+    }) 
+    
     .catch(err => {
       res.status(500).json({ message: 'Could not get tasks' });
     });
@@ -85,21 +85,16 @@ router.post('/resources', (req, res) => {
 
   // POST add a task
 
-  router.post(':id/tasks', (req, res) => {
+  router.post('/tasks', (req, res) => {
+
     const tks = req.body;
-    const { id } = req.params; 
-  
-    Projects.findById(id)
-    .then(prj => {
-      if (prj) {
-        Projectss.addTask(tks, id)
-        .then(tk => {
-          res.status(201).json(tk);
-        })
-      } else {
-        res.status(404).json({ message: 'Could not find Projects with that id.' })
-      }
+     
+    Projects.addTask(tks)
+    .then(tk => {
+
+        res.status(201).json(tk);
     })
+    
     .catch (err => {
       res.status(500).json({ message: 'Could not create a new task.' });
     });
