@@ -5,20 +5,17 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('resources').insert([
-        {id: 1, 
-          task_id: 1,
+        {id: 1,
           project_id: 1,
           name: 'Paint Brush',
           description: 'synthetic hair paint brush'     
       },
         {id: 2,
-          task_id: 2,
           project_id: 2,
           name: 'Broom',
           description: 'Like the kind witches ride'
           },
         {id: 3,
-          task_id: 3,
           project_id: 3,
           name: 'Scrubber',
           description: 'a handled scrubber'

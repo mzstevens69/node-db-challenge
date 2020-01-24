@@ -25,6 +25,7 @@ router.get('/', (req,res) => {
 //POST create a project
 
 router.post('/', (req, res) => {
+    
     const proj = req.body;
   
     Projects.addProject(proj)
